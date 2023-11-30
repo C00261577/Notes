@@ -9,9 +9,18 @@
 <body>
   <div class="container">
     <h1>Delete Notes</h1>
+    <p>Clicking the button below will delete all notes.</p>
     <button onclick="deleteAllNotes()">Delete All Notes</button>
+    <button onclick="goToHomePage()">Go to Home Page</button>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="app.js"></script>
+  <script>
+    // ... (your Supabase and script code for deleting notes)
+
+    function goToHomePage() {
+      window.location.href = 'index.html';
+    }
+  </script>
 </body>
 </html>
