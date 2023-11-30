@@ -7,7 +7,7 @@ const customDomain ='https://zmywdnjcateweeqdawxs.supabase.co'
 import { createClient } from '@supabase/supabase-js';
 
 // Initialize Supabase client with your project URL and API key
-const supabase = createClient('https://zmywdnjcateweeqdawxs.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpteXdkbmpjYXRld2VlcWRhd3hzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDA0ODc3MjUsImV4cCI6MjAxNjA2MzcyNX0.M1LTwSaKtryAjNnnvg1BUnx9orBCUjeMCz62rkJLUhE');
+const supabase = createClient('https://ctstqhvbedqtznezvluf.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0c3RxaHZiZWRxdHpuZXp2bHVmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEyMjE1NjAsImV4cCI6MjAxNjc5NzU2MH0.kWV1RY12sppWe8jibUEBs6f9_EiF4jbUCaApGL8BdaI');
 
 document.addEventListener('DOMContentLoaded', () => {
   // Load existing notes on page load
