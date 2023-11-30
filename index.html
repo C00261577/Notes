@@ -13,6 +13,7 @@
     <div>
       <textarea id="note-input" placeholder="Type your note..."></textarea>
       <button onclick="addNote()">Add Note</button>
+      <div id="message"></div>
     </div>
     <button onclick="showNotesPage()">Show All Notes</button>
     <button onclick="deleteNotesPage()">Delete Notes</button>
@@ -34,12 +35,23 @@
 
       if (noteText !== '') {
         // Insert a new note into the 'notes' table
-        await supabase.from('notes').insert([{ text: noteText }]);
-        
-        // Show all notes including the newly added one
-        showNotes();
+        const { data, error } = await supabase.from('notes').insert([{ text: noteText }]);
 
-        noteInput.value = ''; // Clear the input field
+        if (error) {
+          console.error('Error adding note:', error.message);
+        } else {
+          // Show all notes including the newly added one
+          showNotes();
+
+          noteInput.value = ''; // Clear the input field
+
+          // Display a message
+          const messageElement = document.getElementById('message');
+          messageElement.innerText = 'Note added successfully!';
+          setTimeout(() => {
+            messageElement.innerText = '';
+          }, 3000); // Clear the message after 3 seconds
+        }
       }
     }
 
@@ -77,15 +89,6 @@
 
       // Show the updated list of notes
       showNotes();
-    }
-
-    async function deleteAllNotes() {
-      // Delete all notes from the 'notes' table
-      await supabase.from('notes').delete();
-
-      // Clear the notes container
-      const notesContainer = document.getElementById('notes-container');
-      notesContainer.innerHTML = 'All notes deleted.';
     }
 
     function showNotesPage() {
