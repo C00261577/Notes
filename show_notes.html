@@ -1,3 +1,5 @@
+<!-- show_notes.html -->
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -16,7 +18,40 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="app.js"></script>
   <script>
-    // ... (your Supabase and script code for showing notes)
+    // Replace 'YOUR_SUPABASE_URL' with your actual Supabase project URL
+    // Replace 'YOUR_SUPABASE_PUBLIC_KEY' with your actual Supabase public API key
+    const supabase = createClient('https://ctstqhvbedqtznezvluf.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0c3RxaHZiZWRxdHpuZXp2bHVmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEyMjE1NjAsImV4cCI6MjAxNjc5NzU2MH0.kWV1RY12sppWe8jibUEBs6f9_EiF4jbUCaApGL8BdaI');
+
+    document.addEventListener('DOMContentLoaded', () => {
+      showNotes();
+    });
+
+    async function showNotes() {
+      // Retrieve all notes from the 'notes' table
+      const { data, error } = await supabase.from('notes').select('*');
+      
+      if (error) {
+        console.error('Error loading notes:', error.message);
+      } else {
+        // Display notes in the notes container
+        displayNotes(data);
+      }
+    }
+
+    function displayNotes(notes) {
+      const notesContainer = document.getElementById('notes-container');
+      notesContainer.innerHTML = ''; // Clear previous notes
+
+      notes.forEach((note) => {
+        const noteElement = document.createElement('div');
+        noteElement.classList.add('note');
+        noteElement.innerHTML = `
+          <p>${note.text}</p>
+        `;
+
+        notesContainer.appendChild(noteElement);
+      });
+    }
 
     function goToHomePage() {
       window.location.href = 'index.html';
