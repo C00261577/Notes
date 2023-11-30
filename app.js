@@ -10,7 +10,8 @@ import { createClient } from '@supabase/supabase-js';
 const supabase = createClient('YOUR_SUPABASE_URL', 'YOUR_SUPABASE_API_KEY');
 
 document.addEventListener('DOMContentLoaded', () => {
-  loadNotes();
+  // Load existing notes on page load
+  showNotes();
 });
 
 async function addNote() {
@@ -18,52 +19,57 @@ async function addNote() {
   const noteText = noteInput.value.trim();
 
   if (noteText !== '') {
-    const { data, error } = await supabase.from('notes').insert([{ text: noteText }]);
+    // Insert a new note into the 'notes' table
+    await supabase.from('notes').insert([{ text: noteText }]);
     
-    if (error) {
-      console.error('Error adding note:', error.message);
-    } else {
-      const newNote = data[0];
-      appendNoteToContainer(newNote);
-      noteInput.value = '';
-    }
+    // Show all notes including the newly added one
+    showNotes();
+
+    noteInput.value = ''; // Clear the input field
   }
 }
 
-async function loadNotes() {
+async function showNotes() {
+  // Retrieve all notes from the 'notes' table
   const { data, error } = await supabase.from('notes').select('*');
   
   if (error) {
     console.error('Error loading notes:', error.message);
   } else {
-    data.forEach((note) => {
-      appendNoteToContainer(note);
-    });
+    // Display notes in the notes container
+    displayNotes(data);
   }
 }
 
-function appendNoteToContainer(note) {
+function displayNotes(notes) {
   const notesContainer = document.getElementById('notes-container');
+  notesContainer.innerHTML = ''; // Clear previous notes
 
-  const noteElement = document.createElement('div');
-  noteElement.classList.add('note');
-  noteElement.innerHTML = `
-    <p>${note.text}</p>
-    <button onclick="deleteNote(${note.id})">Delete</button>
-  `;
+  notes.forEach((note) => {
+    const noteElement = document.createElement('div');
+    noteElement.classList.add('note');
+    noteElement.innerHTML = `
+      <p>${note.text}</p>
+      <button onclick="deleteNote(${note.id})">Delete</button>
+    `;
 
-  notesContainer.appendChild(noteElement);
+    notesContainer.appendChild(noteElement);
+  });
 }
 
 async function deleteNote(noteId) {
-  const { error } = await supabase.from('notes').delete().eq('id', noteId);
-  
-  if (error) {
-    console.error('Error deleting note:', error.message);
-  } else {
-    const noteElement = document.querySelector(`.note[data-id="${noteId}"]`);
-    if (noteElement) {
-      noteElement.remove();
-    }
-  }
+  // Delete a specific note by ID
+  await supabase.from('notes').delete().eq('id', noteId);
+
+  // Show the updated list of notes
+  showNotes();
+}
+
+async function deleteAllNotes() {
+  // Delete all notes from the 'notes' table
+  await supabase.from('notes').delete();
+
+  // Clear the notes container
+  const notesContainer = document.getElementById('notes-container');
+  notesContainer.innerHTML = 'All notes deleted.';
 }
