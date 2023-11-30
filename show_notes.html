@@ -1,20 +1,26 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Show All Notes</title>
+  <title>Show Notes</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>Show All Notes</h1>
+    <h1>Show Notes</h1>
     <div id="notes-container">
       <!-- Notes will be dynamically added here -->
     </div>
-    <button onclick="showNotes()">Show All Notes</button>
+    <button onclick="goToHomePage()">Go to Home Page</button>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="app.js"></script>
+  <script>
+    // ... (your Supabase and script code for showing notes)
+
+    function goToHomePage() {
+      window.location.href = 'index.html';
+    }
+  </script>
 </body>
 </html>
