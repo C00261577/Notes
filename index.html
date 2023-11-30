@@ -19,5 +19,74 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="app.js"></script>
+  <script>
+    // Replace 'YOUR_SUPABASE_URL' with your actual Supabase project URL
+    // Replace 'YOUR_SUPABASE_PUBLIC_KEY' with your actual Supabase public API key
+    const supabase = createClient('YOUR_SUPABASE_URL', 'YOUR_SUPABASE_PUBLIC_KEY');
+
+    document.addEventListener('DOMContentLoaded', () => {
+      showNotes();
+    });
+
+    async function addNote() {
+      const noteInput = document.getElementById('note-input');
+      const noteText = noteInput.value.trim();
+
+      if (noteText !== '') {
+        // Insert a new note into the 'notes' table
+        await supabase.from('notes').insert([{ text: noteText }]);
+        
+        // Show all notes including the newly added one
+        showNotes();
+
+        noteInput.value = ''; // Clear the input field
+      }
+    }
+
+    async function showNotes() {
+      // Retrieve all notes from the 'notes' table
+      const { data, error } = await supabase.from('notes').select('*');
+      
+      if (error) {
+        console.error('Error loading notes:', error.message);
+      } else {
+        // Display notes in the notes container
+        displayNotes(data);
+      }
+    }
+
+    function displayNotes(notes) {
+      const notesContainer = document.getElementById('notes-container');
+      notesContainer.innerHTML = ''; // Clear previous notes
+
+      notes.forEach((note) => {
+        const noteElement = document.createElement('div');
+        noteElement.classList.add('note');
+        noteElement.innerHTML = `
+          <p>${note.text}</p>
+          <button onclick="deleteNote(${note.id})">Delete</button>
+        `;
+
+        notesContainer.appendChild(noteElement);
+      });
+    }
+
+    async function deleteNote(noteId) {
+      // Delete a specific note by ID
+      await supabase.from('notes').delete().eq('id', noteId);
+
+      // Show the updated list of notes
+      showNotes();
+    }
+
+    async function deleteAllNotes() {
+      // Delete all notes from the 'notes' table
+      await supabase.from('notes').delete();
+
+      // Clear the notes container
+      const notesContainer = document.getElementById('notes-container');
+      notesContainer.innerHTML = 'All notes deleted.';
+    }
+  </script>
 </body>
 </html>
