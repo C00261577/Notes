@@ -29,6 +29,16 @@ async function addNote() {
   }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+  // Check the current page and execute the corresponding function
+  const currentPage = window.location.pathname;
+  if (currentPage.includes('show_notes.html')) {
+    showNotes();
+  } else if (currentPage.includes('delete_notes.html')) {
+    deleteAllNotes();
+  }
+});
+
 async function showNotes() {
   // Retrieve all notes from the 'notes' table
   const { data, error } = await supabase.from('notes').select('*');
@@ -41,30 +51,6 @@ async function showNotes() {
   }
 }
 
-function displayNotes(notes) {
-  const notesContainer = document.getElementById('notes-container');
-  notesContainer.innerHTML = ''; // Clear previous notes
-
-  notes.forEach((note) => {
-    const noteElement = document.createElement('div');
-    noteElement.classList.add('note');
-    noteElement.innerHTML = `
-      <p>${note.text}</p>
-      <button onclick="deleteNote(${note.id})">Delete</button>
-    `;
-
-    notesContainer.appendChild(noteElement);
-  });
-}
-
-async function deleteNote(noteId) {
-  // Delete a specific note by ID
-  await supabase.from('notes').delete().eq('id', noteId);
-
-  // Show the updated list of notes
-  showNotes();
-}
-
 async function deleteAllNotes() {
   // Delete all notes from the 'notes' table
   await supabase.from('notes').delete();
@@ -73,3 +59,5 @@ async function deleteAllNotes() {
   const notesContainer = document.getElementById('notes-container');
   notesContainer.innerHTML = 'All notes deleted.';
 }
+
+// ... (other functions remain unchanged)
