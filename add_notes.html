@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Notes</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Add Notes</h1>
+    <div>
+      <textarea id="note-input" placeholder="Type your note..."></textarea>
+      <button onclick="addNote()">Add Note</button>
+      <div id="message"></div>
+    </div>
+    <button onclick="showNotesPage()">Show All Notes</button>
+    <button onclick="deleteNotesPage()">Delete Notes</button>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="app.js"></script>
+  <script>
+    const supabase = createClient('YOUR_SUPABASE_URL', 'YOUR_SUPABASE_PUBLIC_KEY');
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Optional: You can perform any initialization here
+    });
+
+    async function addNote() {
+      const noteInput = document.getElementById('note-input');
+      const noteText = noteInput.value.trim();
+
+      if (noteText !== '') {
+        // Insert a new note into the 'notes' table
+        const { data, error } = await supabase.from('notes').insert([{ text: noteText }]);
+
+        if (error) {
+          console.error('Error adding note:', error.message);
+        } else {
+          // Display a message
+          const messageElement = document.getElementById('message');
+          messageElement.innerText = 'Note added successfully!';
+          setTimeout(() => {
+            messageElement.innerText = '';
+          }, 3000); // Clear the message after 3 seconds
+        }
+      }
+    }
+
+    function showNotesPage() {
+      window.location.href = 'show_notes.html';
+    }
+
+    function deleteNotesPage() {
+      window.location.href = 'delete_notes.html';
+    }
+  </script>
+</body>
+</html>
