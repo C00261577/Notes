@@ -1,4 +1,3 @@
-<!-- show_notes.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,20 +9,17 @@
 <body>
   <div class="container">
     <h1>Show Notes</h1>
-    <div id="notes-container">
-      <!-- Notes will be dynamically added here -->
-    </div>
-    <button onclick="goToHomePage()">Go to Home Page</button>
+    <div id="notes-container"></div>
+    <button onclick="showNotesPage()">Add Notes</button>
+    <button onclick="deleteNotesPage()">Delete Notes</button>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="app.js"></script>
   <script>
-    // Replace 'YOUR_SUPABASE_URL' with your actual Supabase project URL
-    // Replace 'YOUR_SUPABASE_PUBLIC_KEY' with your actual Supabase public API key
-    const supabase = createClient('https://ctstqhvbedqtznezvluf.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0c3RxaHZiZWRxdHpuZXp2bHVmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEyMjE1NjAsImV4cCI6MjAxNjc5NzU2MH0.kWV1RY12sppWe8jibUEBs6f9_EiF4jbUCaApGL8BdaI');
+    const supabase = createClient('YOUR_SUPABASE_URL', 'YOUR_SUPABASE_PUBLIC_KEY');
 
     document.addEventListener('DOMContentLoaded', () => {
-      showNotes();
+      showNotes(); // Show notes when the page loads
     });
 
     async function showNotes() {
@@ -45,18 +41,20 @@
       notes.forEach((note) => {
         const noteElement = document.createElement('div');
         noteElement.classList.add('note');
-        noteElement.innerHTML = `
-          <p>ID: ${note.id}</p>
-          <p>Text: ${note.text}</p>
-        `;
+        noteElement.innerHTML = `<p>${note.text}</p>`;
 
         notesContainer.appendChild(noteElement);
       });
     }
 
-    function goToHomePage() {
-      window.location.href = 'index.html';
+    function showNotesPage() {
+      window.location.href = 'add_notes.html';
+    }
+
+    function deleteNotesPage() {
+      window.location.href = 'delete_notes.html';
     }
   </script>
 </body>
 </html>
+
