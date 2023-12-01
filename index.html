@@ -1,3 +1,4 @@
+
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -6,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simple Note App</title>
   <link rel="stylesheet" href="styles.css">
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script type="module" src="app.js"></script>
 </head>
 <body>
   <div class="container">
@@ -15,11 +18,10 @@
       <button onclick="addNote()">Add Note</button>
       <div id="message"></div>
     </div>
+    <div id="notes-container"></div> <!-- Added notes-container div -->
     <button onclick="showNotesPage()">Show All Notes</button>
     <button onclick="deleteNotesPage()">Delete Notes</button>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script src="app.js"></script>
   <script>
     // Replace 'YOUR_SUPABASE_URL' with your actual Supabase project URL
     // Replace 'YOUR_SUPABASE_PUBLIC_KEY' with your actual Supabase public API key
