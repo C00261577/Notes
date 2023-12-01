@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simple Note App</title>
   <link rel="stylesheet" href="styles.css">
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script type="module" src="app.js"></script>
+  <!-- Load Supabase library from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.17.0/dist/main.js"></script>
+  <!-- Your existing script tag for app.js -->
+  <script defer src="app.js"></script>
 </head>
 <body>
   <div class="container">
@@ -16,17 +19,17 @@
       <button onclick="addNote()">Add Note</button>
       <div id="message"></div>
     </div>
-    <div id="notes-container"></div> <!-- Added notes-container div -->
+    <div id="notes-container"></div>
     <button onclick="showNotesPage()">Show All Notes</button>
     <button onclick="deleteNotesPage()">Delete Notes</button>
   </div>
   <script>
-    // Replace 'YOUR_SUPABASE_URL' with your actual Supabase project URL
-    // Replace 'YOUR_SUPABASE_PUBLIC_KEY' with your actual Supabase public API key
-    const supabase = createClient('https://ctstqhvbedqtznezvluf.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0c3RxaHZiZWRxdHpuZXp2bHVmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEyMjE1NjAsImV4cCI6MjAxNjc5NzU2MH0.kWV1RY12sppWe8jibUEBs6f9_EiF4jbUCaApGL8BdaI');
+    // Initialize Supabase client with your project URL and API key
+    const supabase = createClient('https://ctstqhvbedqtznezvluf.supabase.co', 'YOUR_API_KEY');
 
     document.addEventListener('DOMContentLoaded', () => {
-      showNotes(); // Show notes when the page loads
+      // Load existing notes on page load
+      showNotes();
     });
 
     async function addNote() {
@@ -35,25 +38,24 @@
 
       if (noteText !== '') {
         // Insert a new note into the 'notes' table
-        const { data, error } = await supabase.from('notes').insert([{ text: noteText }]);
+        await supabase.from('notes').insert([{ text: noteText }]);
+        
+        // Show all notes including the newly added one
+        showNotes();
 
-        if (error) {
-          console.error('Error adding note:', error.message);
-        } else {
-          // Show all notes including the newly added one
-          showNotes();
-
-          noteInput.value = ''; // Clear the input field
-
-          // Display a message
-          const messageElement = document.getElementById('message');
-          messageElement.innerText = 'Note added successfully!';
-          setTimeout(() => {
-            messageElement.innerText = '';
-          }, 3000); // Clear the message after 3 seconds
-        }
+        noteInput.value = ''; // Clear the input field
       }
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check the current page and execute the corresponding function
+      const currentPage = window.location.pathname;
+      if (currentPage.includes('show_notes.html')) {
+        showNotes();
+      } else if (currentPage.includes('delete_notes.html')) {
+        deleteAllNotes();
+      }
+    });
 
     async function showNotes() {
       // Retrieve all notes from the 'notes' table
@@ -67,38 +69,16 @@
       }
     }
 
-    function displayNotes(notes) {
+    async function deleteAllNotes() {
+      // Delete all notes from the 'notes' table
+      await supabase.from('notes').delete();
+
+      // Clear the notes container
       const notesContainer = document.getElementById('notes-container');
-      notesContainer.innerHTML = ''; // Clear previous notes
-
-      notes.forEach((note) => {
-        const noteElement = document.createElement('div');
-        noteElement.classList.add('note');
-        noteElement.innerHTML = `
-          <p>${note.text}</p>
-          <button onclick="deleteNote(${note.id})">Delete</button>
-        `;
-
-        notesContainer.appendChild(noteElement);
-      });
+      notesContainer.innerHTML = 'All notes deleted.';
     }
 
-    async function deleteNote(noteId) {
-      // Delete a specific note by ID
-      await supabase.from('notes').delete().eq('id', noteId);
-
-      // Show the updated list of notes
-      showNotes();
-    }
-
-    function showNotesPage() {
-      window.location.href = 'show_notes.html';
-    }
-
-    function deleteNotesPage() {
-      window.location.href = 'delete_notes.html';
-    }
+    // ... (other functions remain unchanged)
   </script>
 </body>
 </html>
-
