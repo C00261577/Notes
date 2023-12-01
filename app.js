@@ -1,4 +1,3 @@
-
 const { createClient } = supabase;
 const key ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0c3RxaHZiZWRxdHpuZXp2bHVmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEyMjE1NjAsImV4cCI6MjAxNjc5NzU2MH0.kWV1RY12sppWe8jibUEBs6f9_EiF4jbUCaApGL8BdaI'
 
@@ -62,4 +61,3 @@ async function deleteAllNotes() {
 }
 
 // ... (other functions remain unchanged)
-
