@@ -3,8 +3,7 @@ const key ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI
 const customDomain ='https://ctstqhvbedqtznezvluf.supabase.co'
 
 
-// Import the Supabase client library
-import { createClient } from '@supabase/supabase-js';
+
 
 // Initialize Supabase client with your project URL and API key
 const supabase = createClient('https://ctstqhvbedqtznezvluf.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0c3RxaHZiZWRxdHpuZXp2bHVmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEyMjE1NjAsImV4cCI6MjAxNjc5NzU2MH0.kWV1RY12sppWe8jibUEBs6f9_EiF4jbUCaApGL8BdaI');
