@@ -10,13 +10,23 @@
   <div class="container">
     <h1>Show Notes</h1>
     <div id="notes-container"></div>
-    <button onclick="showNotesPage()">Add Notes</button>
+    <button onclick="index()">Add Notes</button>
     <button onclick="deleteNotesPage()">Delete Notes</button>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script type="module" src="app.js"></script>
 
   <script>
+      
+    function index() {
+      // Redirect to show_notes.html
+      window.location.href = 'index.html';
+    }
+
+    function deleteNotesPage() {
+      // Redirect to delete_notes.html
+      window.location.href = 'delete_notes.html';
+    }
 
   </script>
 </body>
