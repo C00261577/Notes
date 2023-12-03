@@ -57,5 +57,12 @@ async function deleteAllNotes() {
   const notesContainer = document.getElementById('notes-container');
   notesContainer.innerHTML = 'All notes deleted.';
 }
-
+const { user, error } = await supabase.auth.signUp({
+  email: 'user@example.com',
+  password: 'secure_password',
+});
+const { user, error } = await supabase.auth.signIn({
+  email: 'user@example.com',
+  password: 'secure_password',
+});
 // ... (other functions remain unchanged)
