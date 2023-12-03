@@ -2,10 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Note App</title>
-  <link rel="stylesheet" href="styles.css">
+  <!-- ... your head content ... -->
 </head>
 <body>
   <div class="container">
@@ -19,12 +16,20 @@
     <button onclick="deleteNotesPage()">Delete Notes</button>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script type="module" src="app.js"></script>
+  <script type="module" src="app.js"></script>
 
   <script>
-    
-   
+    function showNotesPage() {
+      // Redirect to show_notes.html
+      window.location.href = 'show_notes.html';
+    }
+
+    function deleteNotesPage() {
+      // Redirect to delete_notes.html
+      window.location.href = 'delete_notes.html';
+    }
+
+    // Additional functions and logic in your app.js file
   </script>
 </body>
 </html>
-
