@@ -2,20 +2,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- ... your head content ... -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Note App</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>Simple Note App</h1>
-    <div>
-      <textarea id="note-input" placeholder="Type your note..."></textarea>
-      <button onclick="addNote()">Add Note</button>
-      <div id="message"></div>
-       <link rel="stylesheet" href="styles.css">
-    </div>
-    <button onclick="showNotesPage()">Show All Notes</button>
-    <button onclick="deleteNotesPage()">Delete Notes</button>
+    <header>
+      <h1>Simple Note App</h1>
+      <div class="login-container">
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+      </div>
+    </header>
+
+    <main>
+      <div>
+        <textarea id="note-input" placeholder="Type your note..."></textarea>
+        <button onclick="addNote()">Add Note</button>
+        <div id="message"></div>
+      </div>
+      <button onclick="showNotesPage()">Show All Notes</button>
+      <button onclick="deleteNotesPage()">Delete Notes</button>
+    </main>
+
+    <footer>
+      <div class="social-media-links">
+        <a href="#" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a href="#" target="_blank" rel="noopener noreferrer">Twitter</a>
+        <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+      </div>
+    </footer>
   </div>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script type="module" src="app.js"></script>
 
@@ -28,6 +49,10 @@
     function deleteNotesPage() {
       // Redirect to delete_notes.html
       window.location.href = 'delete_notes.html';
+    }
+
+    function login() {
+      // Implement your login logic using Supabase or any other authentication method
     }
 
     // Additional functions and logic in your app.js file
