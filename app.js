@@ -6,7 +6,11 @@ const customDomain ='https://ctstqhvbedqtznezvluf.supabase.co';
 
 
 // Initialize Supabase client with your project URL and API key
-const supabase = createClient(customDomain, key);
+supabaseClient;
+console.log('supabase', supabase);
+this.supabaseClient = supabase.createClient(customDomain, key);
+console.log('supabaseClient', this.supabaseClient);
+
 
 document.addEventListener('DOMContentLoaded', () => {
   // Load existing notes on page load
