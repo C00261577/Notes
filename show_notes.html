@@ -1,3 +1,4 @@
+<!-- show_notes.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,22 +14,38 @@
     <button onclick="index()">Add Notes</button>
     <button onclick="deleteNotesPage()">Delete Notes</button>
   </div>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script type="module" src="app.js"></script>
 
   <script>
-      
-    function index() {
-      // Redirect to show_notes.html
-      window.location.href = 'index.html';
+    async function displayNotes() {
+      // Fetch and display notes from Supabase
+      const { data, error } = await supabase.from('notes').select('text');
+
+      if (error) {
+        console.error('Error fetching notes:', error.message);
+      } else {
+        const notesContainer = document.getElementById('notes-container');
+
+        // Clear existing notes
+        notesContainer.innerHTML = '';
+
+        // Display each note in the container
+        if (data && data.length > 0) {
+          data.forEach(note => {
+            const noteDiv = document.createElement('div');
+            noteDiv.innerText = note.text;
+            notesContainer.appendChild(noteDiv);
+          });
+        } else {
+          notesContainer.innerText = 'No notes available.';
+        }
+      }
     }
 
-    function deleteNotesPage() {
-      // Redirect to delete_notes.html
-      window.location.href = 'delete_notes.html';
-    }
-
+    // Call the displayNotes function when the page loads
+    displayNotes();
   </script>
 </body>
 </html>
-
