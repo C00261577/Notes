@@ -50,6 +50,10 @@ async function showNotes() {
   }
 }
 
+function displayNotes(data){
+  console.log(data);
+}
+
 async function deleteAllNotes() {
   // Delete all notes from the 'notes' table
   await supabase.from('notes').delete();
