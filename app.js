@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
   showNotes();
 });
 
-async function addNote() {
+const addNoteButton = document.getElementById('addButton');
+ addNoteButton.addEventListener('click', async () => {
   const noteInput = document.getElementById('note-input');
   const noteText = noteInput.value.trim();
 
@@ -26,7 +27,9 @@ async function addNote() {
 
     noteInput.value = ''; // Clear the input field
   }
-}
+})
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
   // Check the current page and execute the corresponding function
@@ -74,4 +77,3 @@ const { user, error } = await supabase.auth.signIn({
 });*/
 
 // ... (other functions remain unchanged)
-
