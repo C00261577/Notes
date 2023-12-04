@@ -42,6 +42,19 @@
   <script type="module" src="app.js"></script>
 
   <script>
+    async function addNote() {
+      // Your existing addNote function logic
+      // ...
+
+      // Example: Log a message to the console when the button is clicked
+      console.log('Add Note button clicked');
+    }
+
+    // Attach the addNote function to the "Add Note" button click event
+    const addNoteButton = document.querySelector('button[onclick="addNote()"]');
+    if (addNoteButton) {
+      addNoteButton.addEventListener('click', addNote);
+    }
     function showNotesPage() {
       // Redirect to show_notes.html
       window.location.href = 'show_notes.html';
