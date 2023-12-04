@@ -62,6 +62,20 @@ async function deleteAllNotes() {
   const notesContainer = document.getElementById('notes-container');
   notesContainer.innerHTML = 'All notes deleted.';
 }
+  async function addNote() {
+      // Your existing addNote function logic
+      // ...
+
+      // Example: Log a message to the console when the button is clicked
+      console.log('Add Note button clicked');
+    }
+
+    // Attach the addNote function to the "Add Note" button click event
+    const addNoteButton = document.querySelector('button[onclick="addNote()"]');
+    if (addNoteButton) {
+      addNoteButton.addEventListener('click', addNote);
+    }
+
 /*const { user, error } = await supabase.auth.signUp({
   email: 'user@example.com',
   password: 'secure_password',
